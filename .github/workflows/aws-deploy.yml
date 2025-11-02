@@ -41,7 +41,7 @@ jobs:
 
     # Step 4: Build and Push Docker image
     - name: Build and Push Docker image
-      working-directory: ReactApp
+      working-directory: my-react-app
       run: |
         IMAGE_TAG=${{ github.run_number }}
         IMAGE_URI=${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${IMAGE_TAG}
@@ -57,6 +57,12 @@ jobs:
     # Step 6: Deploy to EKS
     - name: Deploy to EKS
       run: |
-        kubectl apply -f k8s/deployment.yml
-        kubectl apply -f k8s/service.yml
-        kubectl set image deployment/demoapp-deployment demoapp-container=${{ env.IMAGE_URI }}
+        echo "Applying Kubernetes manifests..."
+        kubectl apply -f k8s/deployment.yaml
+
+        echo "Recreating LoadBalancer service..."
+        kubectl delete svc demoapp-service --ignore-not-found
+        kubectl apply -f k8s/service.yaml
+          
+        # Force pods to use new image tag
+        kubectl set image deployment/demoapp-deployment demoapp=${{ env.IMAGE_URI }}
