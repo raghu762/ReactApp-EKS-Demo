@@ -66,3 +66,6 @@ jobs:
           
         # Force pods to use new image tag
         kubectl set image deployment/demoapp-deployment demoapp=${{ env.IMAGE_URI }}
+
+        # Wait until rollout completes
+        kubectl rollout status deployment/demoapp-deployment
