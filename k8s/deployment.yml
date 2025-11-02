@@ -13,7 +13,7 @@ spec:
         app: demoapp
     spec:
       containers:
-      - name: demoapp-container
+      - name: demoapp
         image: <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/demoapp:latest
         ports:
         - containerPort: 80
