@@ -58,11 +58,11 @@ jobs:
     - name: Deploy to EKS
       run: |
         echo "Applying Kubernetes manifests..."
-        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/deployment.yml
 
         echo "Recreating LoadBalancer service..."
         kubectl delete svc demoapp-service --ignore-not-found
-        kubectl apply -f k8s/service.yaml
+        kubectl apply -f k8s/service.yml
           
         # Force pods to use new image tag
         kubectl set image deployment/demoapp-deployment demoapp=${{ env.IMAGE_URI }}
