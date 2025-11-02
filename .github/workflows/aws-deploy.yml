@@ -21,7 +21,7 @@ jobs:
 
     # Step 1: Build React app
     - name: Install dependencies and build React app
-      working-directory: ReactApp
+      working-directory: my-react-app
       run: |
         npm install
         npm run build
