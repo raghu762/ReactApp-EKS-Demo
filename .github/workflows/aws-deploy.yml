@@ -69,3 +69,5 @@ jobs:
 
         # Wait until rollout completes
         kubectl rollout status deployment/demoapp-deployment
+
+        kubectl taint nodes --all CriticalAddonsOnly- karpenter.sh/disrupted- || true
