@@ -24,7 +24,7 @@ jobs:
       working-directory: my-react-app
       run: |
         npm install
-        npm run build
+        CI=false npm run build
 
     # Step 2: Configure AWS credentials
     - name: Configure AWS credentials
